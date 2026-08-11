@@ -1,13 +1,13 @@
 from models.db_connect import MySQLConnector
 from mysql.connector import Error
 
-class Produto:
+class Item:
     def __init__(self, title, content):
         self.title = title
         self.content = content
 
     @staticmethod
-    def Cadastrar_Produto(tipo, marca, modelo, qnt, cor, data):
+    def Cadastrar_Item(categoria, descricao, cor, data, local):
         db = MySQLConnector()
         conn = None
 
@@ -15,8 +15,8 @@ class Produto:
             conn = db.connect()
             cursor = conn.cursor(dictionary=True)
 
-            script = "INSERT INTO tb_produtos (tipo_produto, marca_produto, modelo_produto, qnt_produto, cor_produto, data_produto) VALUES (%s,%s,%s,%s,%s,%s)"
-            cursor.execute(script, (tipo, marca, modelo, qnt, cor, data))
+            script = "INSERT INTO tb_item (categoria, descricao, cor_item, data_achado, local_achado) VALUES (%s,%s,%s,%s,%s)"
+            cursor.execute(script, (categoria, descricao, cor, data, local))
             conn.commit()
             return 1
 
@@ -27,9 +27,9 @@ class Produto:
             if conn and conn.is_connected():
                 cursor.close()
                 conn.close()
-    
+
     @staticmethod
-    def Listar_Produtos():
+    def Listar_Item():
         db = MySQLConnector()
         conn = None
         resultado = []
@@ -37,7 +37,7 @@ class Produto:
         try:
             conn = db.connect()
             cursor = conn.cursor(dictionary=True)
-            sql = "SELECT * FROM tb_produtos"
+            sql = "SELECT * FROM tb_item"
             cursor.execute(sql)
             resultado = cursor.fetchall()
 
@@ -46,30 +46,29 @@ class Produto:
         finally:
             if conn and conn.is_connected():
                 cursor.close()
-                db.close()
+                conn.close()
 
         return resultado
 
     @staticmethod
-    def Remover_Produto(id):
+    def Remover_Item(id):
         db = MySQLConnector()
         conn = None
-        resultado = None
 
         try:
             conn = db.connect()
             cursor = conn.cursor(dictionary=True)
 
-            query = "SELECT modelo_produto, tipo_produto FROM tb_produtos WHERE ID_produto = %s"
+            query = "SELECT categoria, cor_item FROM tb_item WHERE ID_itens = %s"
             cursor.execute(query, (id,))
             resultado = cursor.fetchone()
 
-            sql = "DELETE FROM tb_produtos WHERE ID_produto = %s"
+            sql = "DELETE FROM tb_item WHERE ID_itens = %s"
             cursor.execute(sql, (id,))
             conn.commit()
 
             return resultado
-        
+
         except Error as e:
             if conn:
                 conn.rollback()
@@ -77,10 +76,10 @@ class Produto:
         finally:
             if conn and conn.is_connected():
                 cursor.close()
-                db.close()
+                conn.close()
 
     @staticmethod
-    def Editar_Produto(id):
+    def Editar_Item(id):
         db = MySQLConnector()
         conn = None
 
@@ -88,8 +87,8 @@ class Produto:
             conn = db.connect()
             cursor = conn.cursor(dictionary=True)
 
-            sql = "SELECT * FROM tb_produtos WHERE ID_produto = %s"
-            cursor.execute(sql,(id,))
+            sql = "SELECT * FROM tb_item WHERE ID_itens = %s"
+            cursor.execute(sql, (id,))
             resultado = cursor.fetchone()
 
         except Error as e:
@@ -97,26 +96,27 @@ class Produto:
         finally:
             if conn and conn.is_connected():
                 cursor.close()
-                db.close()
-        
+                conn.close()
+
         return resultado
-    
+
     @staticmethod
-    def Atualizar_Produto(id, tipo, marca, modelo, qnt, cor, data):   
+    def Atualizar_Item(id, categoria, descricao, cor, data, local):
         db = MySQLConnector()
         conn = None
+
         try:
             conn = db.connect()
             cursor = conn.cursor(dictionary=True)
 
-            sql = "UPDATE tb_produtos SET tipo_produto = %s, marca_produto = %s, modelo_produto = %s, qnt_produto = %s, cor_produto = %s, data_produto = %s WHERE ID_produto = %s"
-            cursor.execute(sql, (tipo, marca, modelo, qnt, cor, data, id))
+            sql = "UPDATE tb_item SET categoria = %s, descricao = %s, cor_item = %s, data_achado = %s, local_achado = %s WHERE ID_itens = %s"
+            cursor.execute(sql, (categoria, descricao, cor, data, local, id))
             conn.commit()
-            return True
+            return 1
 
         except Error as e:
             print(f"Erro: {e}")
-            return False
+            return 0
         finally:
             if conn and conn.is_connected():
                 cursor.close()

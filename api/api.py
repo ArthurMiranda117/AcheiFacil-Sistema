@@ -1,9 +1,8 @@
 from flask import Flask
-from controllers.produto_controller import produto_bp
-from controllers.fornecedor_controller import fornecedor_bp
-from controllers.venda_controller import venda_bp
+from controllers.item_controller import item_bp
+from controllers.retirada_controller import retirada_bp
+
 
 app = Flask(__name__)
-app.register_blueprint(produto_bp)
-app.register_blueprint(fornecedor_bp)
-app.register_blueprint(venda_bp)
+app.register_blueprint(item_bp)
+app.register_blueprint(retirada_bp)

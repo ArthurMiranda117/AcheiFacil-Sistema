@@ -2,22 +2,23 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ModalAviso from "../../assets/js/ModalAviso";
 import ModalConfirmacao from "../../assets/js/ModalConfirmacao";
+import { format } from "date-fns";
 
-export default function Fornecedor() {
-    const [listaFornecedor, setListaFornecedor] = useState([]);
+export default function Retiradas() {
+    const [listaRetirada, setListaRetirada] = useState([]);
     const navigate = useNavigate();
     const location = useLocation();
 
     const fetchData = async () => {
         try {
-            const resposta = await fetch("/api/listaFornecedor");
+            const resposta = await fetch("/api/listaRetirada");
             const texto = await resposta.text();
             const dados = JSON.parse(texto);
 
             if (Array.isArray(dados)) {
-                setListaFornecedor(dados);
-            } else if (dados && Array.isArray(dados.fornecedores)) {
-                setListaFornecedor(dados.fornecedores);
+                setListaRetirada(dados);
+            } else if (dados && Array.isArray(dados.retirada)) {
+                setListaRetirada(dados.retirada);
             } else {
                 console.error("Formato inesperado:", dados);
             }
@@ -42,14 +43,14 @@ export default function Fornecedor() {
 
     const confirmaExclusao = async () => {
         try {
-            const resposta = await fetch("/api/excluiFornecedor/" + idDeletar, {
+            const resposta = await fetch("/api/excluiRetirada/" + idDeletar, {
                 method: "DELETE",
             });
             const data = await resposta.json();
 
             if (resposta.ok) {
-                setListaFornecedor(
-                    listaFornecedor.filter((item) => item.ID_fornecedor !== idDeletar)
+                setListaRetirada(
+                    listaRetirada.filter((item) => item.ID_retirada !== idDeletar)
                 );
                 setMensagemApi(data.message || "Ação concluída!");
                 setModalAviso(true);
@@ -69,49 +70,48 @@ export default function Fornecedor() {
 
     return (
         <>
+        <title>AcheiFacil</title>
             <section id="body">
                 <div className="tabela">
-                    <h1>Lista de Fornecedores</h1>
-                    <button onClick={() => navigate("/CadastroFornecedor")}>
+                    <h1>Listagem de Retiradas</h1>
+                    <button onClick={() => navigate("/CadastroRetirada")}>
                         + Novo Cadastro
                     </button>
                     <table>
                         <thead>
                             <tr>
-                                <th rowSpan="2">Empresa</th>
-                                <th rowSpan="2">Telefone</th>
-                                <th rowSpan="2">CNPJ</th>
-                                <th rowSpan="2">Quantidade Material</th>
+                                <th rowSpan="2">Item ID</th>
+                                <th rowSpan="2">Nome </th>
+                                <th rowSpan="2">CPF</th>
+                                <th rowSpan="2">Data</th>
+                                <th rowSpan="2">Atendente</th>
                                 <th colSpan="2">Ações</th>
-                            </tr>
-                            <tr>
-                                <th>Editar</th>
-                                <th>Excluir</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {listaFornecedor.length > 0 ? (
-                                listaFornecedor.map((res) => (
-                                    <tr key={res.ID_fornecedor}>
-                                        <td>{res.nome_empresa}</td>
-                                        <td>{res.telefone}</td>
-                                        <td>{res.cnpj}</td>
-                                        <td>{res.qnt_material}</td>
+                            {listaRetirada.length > 0 ? (
+                                listaRetirada.map((res) => (
+                                    <tr key={res.ID_retirada}>
+                                        <td>{res.item_ID}</td>
+                                        <td>{res.nome_retirada}</td>
+                                        <td>{res.cpf_retirada}</td>
+                                        <td>{format(res.data_retirada, "dd/MM/yyyy")}</td>
+                                        <td>{res.atendente}</td>
                                         <td>
-                                            <button onClick={() => navigate("/EditarFornecedor/" + res.ID_fornecedor)}>
-                                                ✏️
+                                            <button onClick={() => navigate("/EditarRetirada/" + res.ID_retirada)}>
+                                                Editar
                                             </button>
                                         </td>
                                         <td>
-                                            <button onClick={() => abriConfirmacao(res.ID_fornecedor)}>
-                                                🗑️
+                                            <button onClick={() => abriConfirmacao(res.ID_retirada)}>
+                                                Excluir
                                             </button>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="6">Nenhum fornecedor encontrado.</td>
+                                    <td colSpan="7">Nenhuma retirada encontrada.</td>
                                 </tr>
                             )}
                         </tbody>

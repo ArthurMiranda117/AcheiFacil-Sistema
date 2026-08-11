@@ -9,9 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "api": "cd api && venv\\Scripts\\flask run --no-debugger"
-    
   },
   "dependencies": {
+    "date-fns": "^4.2.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.14.2"

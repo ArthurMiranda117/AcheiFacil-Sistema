@@ -2,23 +2,22 @@ import React, { useState, useEffect } from "react";
 import ModalAviso from "../../assets/js/ModalAviso";
 import { useParams, useNavigate } from "react-router-dom";
 
-export default function EditaProdutos() {
+export default function EditarRetirada() {
     const { id } = useParams();
     const navigate = useNavigate();
     
     const [inputs, setInputs] = useState({
-        tipo_produto: "",
-        marca_produto: "",
-        modelo_produto: "",
-        qnt_produto: "",
-        cor_produto: "",
-        data_produto: "",
+        item_ID: "",
+        nome_retirada: "",
+        cpf_retirada: "",
+        data_retirada: "",
+        atendente: "",
     });
     const [modalAviso, setModalAviso] = useState(false);
     const [mensagemApi, setMensagemApi] = useState("");
 
     useEffect(() => {
-        fetch("/api/editarProduto/" + id)
+        fetch("/api/editarRetirada/" + id)
             .then((res) => res.json())
             .then((data) => setInputs(data));
     }, [id]);
@@ -31,7 +30,7 @@ export default function EditaProdutos() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("/api/atualizarProduto/" + id, {
+            const response = await fetch("/api/atualizarRetirada/" + id, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(inputs),
@@ -54,35 +53,34 @@ export default function EditaProdutos() {
 
     return (
         <>
+        <title>AcheiFacil</title>
             <section id="body">
-                <h1>Editar Produto</h1>
+                <h1>Editar Retirada</h1>
                 <form onSubmit={handleSubmit}>
-                    <label>Tipo: </label>
-                    <input type="text" name="tipo_produto" value={inputs.tipo_produto}
-                        onChange={handleChange} placeholder="Digite o tipo" required />
+                    <label>ID Item: </label>
+                    <input type="number" name="item_ID" value={inputs.item_ID}
+                        onChange={handleChange} placeholder="Digite o ID do item" required />
                     <br /><br />
-                    <label>Marca: </label>
-                    <input type="text" name="marca_produto" value={inputs.marca_produto}
-                        onChange={handleChange} placeholder="Digite a marca" required />
+                    <label>Nome: </label>
+                    <input type="text" name="nome_retirada" value={inputs.nome_retirada}
+                        onChange={handleChange} placeholder="Digite o nome" required />
                     <br /><br />
-                    <label>Modelo: </label>
-                    <input type="text" name="modelo_produto" value={inputs.modelo_produto}
-                        onChange={handleChange} placeholder="Digite o modelo" required />
-                    <br /><br />
-                    <label>Quantidade: </label>
-                    <input type="number" name="qnt_produto" value={inputs.qnt_produto}
-                        onChange={handleChange} placeholder="Digite a quantidade" required />
-                    <br /><br />
-                    <label>Cor: </label>
-                    <input type="text" name="cor_produto" value={inputs.cor_produto}
-                        onChange={handleChange} placeholder="Digite a cor" required />
+                    <label>CPF: </label>
+                    <input type="text" name="cpf_retirada" value={inputs.cpf_retirada}
+                        onChange={handleChange} placeholder="Digite o CPF" required />
                     <br /><br />
                     <label>Data: </label>
-                    <input type="date" name="data_produto" value={inputs.data_produto}
+                    <input type="date" name="data_retirada" value={inputs.data_retirada}
                         onChange={handleChange} required />
                     <br /><br />
-                    <button type="submit">Alterar</button>
-                    <button type="button" onClick={() => navigate("/Produtos")}>Cancelar</button>
+                    <label>Atendente: </label>
+                    <input type="text" name="atendente" value={inputs.atendente}
+                        onChange={handleChange} placeholder="Digite o nome do atendente" required />
+                    <br /><br />
+                    <button type="submit" className="BT">Alterar</button>
+                    <button type="button" className="BT" style={{ marginLeft: "16px" }} onClick={() => navigate("/Retiradas")}>
+                        Cancelar
+                    </button>
                 </form>
             </section>
 
@@ -90,7 +88,7 @@ export default function EditaProdutos() {
                 isOpen={modalAviso}
                 onClose={() => {
                     setModalAviso(false);
-                    navigate("/Produtos");
+                    navigate("/Retiradas");
                 }}
                 message={mensagemApi}
             />

@@ -7,7 +7,7 @@ class MySQLConnector:
             'host': 'localhost',
             'user': 'root',
             'password':'',
-            'database': 'db_produtos'
+            'database': 'db_acheifacil'
         }
         self.conn = None
     def connect(self):

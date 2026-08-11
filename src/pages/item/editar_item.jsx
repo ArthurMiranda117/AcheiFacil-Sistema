@@ -2,21 +2,22 @@ import React, { useState, useEffect } from "react";
 import ModalAviso from "../../assets/js/ModalAviso";
 import { useParams, useNavigate } from "react-router-dom";
 
-export default function EditarFornecedor() {
+export default function EditarItem() {
     const { id } = useParams();
     const navigate = useNavigate();
-    
+
     const [inputs, setInputs] = useState({
-        nome_empresa: "",
-        telefone: "",
-        cnpj: "",
-        qnt_material: "",
+        categoria: "",
+        descricao: "",
+        cor_item: "",
+        data_achado: "",
+        local_achado: "",
     });
     const [modalAviso, setModalAviso] = useState(false);
     const [mensagemApi, setMensagemApi] = useState("");
 
     useEffect(() => {
-        fetch("/api/editarFornecedor/" + id)
+        fetch("/api/editarItem/" + id)
             .then((res) => res.json())
             .then((data) => setInputs(data));
     }, [id]);
@@ -29,7 +30,7 @@ export default function EditarFornecedor() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("/api/atualizarFornecedor/" + id, {
+            const response = await fetch("/api/atualizarItem/" + id, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(inputs),
@@ -39,7 +40,6 @@ export default function EditarFornecedor() {
             if (response.ok) {
                 setMensagemApi(data.message || "Ação concluída!");
                 setModalAviso(true);
-
             } else {
                 setMensagemApi(data.message || "Erro ao atualizar.");
                 setModalAviso(true);
@@ -53,27 +53,32 @@ export default function EditarFornecedor() {
 
     return (
         <>
+        <title>AcheiFacil</title>
             <section id="body">
-                <h1>Editar Fornecedor</h1>
+                <h1>Editar Item</h1>
                 <form onSubmit={handleSubmit}>
-                    <label>Nome: </label>
-                    <input type="text" name="nome_empresa" value={inputs.nome_empresa}
-                        onChange={handleChange} placeholder="Digite o nome" required />
+                    <label>Categoria: </label>
+                    <input type="text" name="categoria" value={inputs.categoria}
+                        onChange={handleChange} placeholder="Digite a categoria" required />
                     <br /><br />
-                    <label>Telefone: </label>
-                    <input type="number" name="telefone" value={inputs.telefone}
-                        onChange={handleChange} placeholder="Digite o telefone" required />
+                    <label>Descrição: </label>
+                    <input type="text" name="descricao" value={inputs.descricao}
+                        onChange={handleChange} placeholder="Digite a descrição" required />
                     <br /><br />
-                    <label>CNPJ: </label>
-                    <input type="number" name="cnpj" value={inputs.cnpj}
-                        onChange={handleChange} placeholder="Digite o CNPJ" required />
+                    <label>Cor: </label>
+                    <input type="text" name="cor_item" value={inputs.cor_item}
+                        onChange={handleChange} placeholder="Digite a cor" required />
                     <br /><br />
-                    <label>Quantidade: </label>
-                    <input type="number" name="qnt_material" value={inputs.qnt_material}
-                        onChange={handleChange} placeholder="Digite a quantidade" required />
+                    <label>Data: </label>
+                    <input type="date" name="data_achado" value={inputs.data_achado}
+                        onChange={handleChange} required />
                     <br /><br />
-                    <button type="submit">Alterar</button>
-                    <button type="button" onClick={() => navigate("/Fornecedor")}>
+                    <label>Local: </label>
+                    <input type="text" name="local_achado" value={inputs.local_achado}
+                        onChange={handleChange} placeholder="Digite o local" required />
+                    <br /><br />
+                    <button type="submit" className="BT">Alterar</button>
+                    <button type="button" className="BT" style={{ marginLeft: "16px" }} onClick={() => navigate("/Itens")}>
                         Cancelar
                     </button>
                 </form>
@@ -83,7 +88,7 @@ export default function EditarFornecedor() {
                 isOpen={modalAviso}
                 onClose={() => {
                     setModalAviso(false);
-                    navigate("/Fornecedor");
+                    navigate("/Itens");
                 }}
                 message={mensagemApi}
             />

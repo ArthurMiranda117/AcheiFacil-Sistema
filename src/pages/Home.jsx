@@ -1,16 +1,25 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Home() {
+    const navigate = useNavigate();
 
     return (
         <>
-        <title>Gen/Produtos</title>
-        <center>
-            <h1>Gerenciador de Produtos Generico</h1>
-            <p></p>
-            <h3>ver todos os produtos genericos disponiveis</h3>
-            <h6>imagem generica ↓</h6>
-            <img src="https://th.bing.com/th/id/R.072f7083aaa018a54451633d05239ee5?rik=EqpY1orvcD7ihA&pid=ImgRaw&r=0" width={700} height={350}></img>
-            <p></p>
-        </center>
+            <title>AcheiFacil</title>
+            <center>
+                <p></p>
+                <form>
+                <center>
+                <img src="imagens/AcheiFacilW.png" alt="Logo do Site" className='imagem' width="300" height="200" />
+                <h3>Gerenciador de Achados & Perdidos</h3>
+                <h6>Entre na listagem de Achados ↓</h6>
+                <button onClick={() => navigate("/Itens")}>
+                    ENTRAR
+                </button>
+                </center>
+                </form>
+                <p></p>
+            </center>
         </>
-    )
+    );
 }

@@ -17,7 +17,7 @@ const ModalConfirmacao = ({ isOpen, onClose, onConfirm, message }) => {
             marginTop: "20px",
           }}
         >
-          <button onClick={onClose} style={btnCancelStyle}>
+          <button onClick={onClose} className="CANCEL" style={btnCancelStyle}>
             Cancelar
           </button>
           <button onClick={onConfirm} style={btnConfirmStyle}>
@@ -57,7 +57,7 @@ const btnCancelStyle = {
   cursor: "pointer",
   borderRadius: "6px",
   border: "1px solid #ccc",
-  backgroundColor: "#eee",
+  backgroundColor: "#aa3bff",
 };
 
 const btnConfirmStyle = {
