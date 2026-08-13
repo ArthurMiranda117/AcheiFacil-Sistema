@@ -1,10 +1,10 @@
-# 🔍 AcheiFacil — Sistema Web de Achados e Perdidos
+# AcheiFacil — Sistema Web de Achados e Perdidos
 
 > Sistema web desenvolvido para gerenciar achados e perdidos em ambientes escolares, permitindo o registro, controle e devolução de itens encontrados nas dependências da instituição.
 
 ---
 
-## 📋 Sobre o Projeto
+## Sobre o Projeto
 
 O **AcheiFacil** é um sistema web fullstack desenvolvido como Trabalho de Conclusão de Curso do Técnico em Desenvolvimento de Sistemas da Escola Técnica do Guará Professora Teresa Ondina Maltese (ETG).
 
@@ -12,9 +12,9 @@ O sistema permite que atendentes registrem itens encontrados, controlem o status
 
 ---
 
-## ✨ Funcionalidades
+## Funcionalidades
 
-### 📦 Módulo de Itens
+### Módulo de Itens
 - ✅ Cadastrar itens encontrados (categoria, descrição, cor, data e local)
 - ✅ Listar todos os itens com status atual
 - ✅ Editar informações de um item
@@ -29,7 +29,7 @@ O sistema permite que atendentes registrem itens encontrados, controlem o status
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 ### Frontend
 | Tecnologia | Versão | Função |
@@ -53,7 +53,7 @@ O sistema permite que atendentes registrem itens encontrados, controlem o status
 
 ---
 
-## 🗄️ Estrutura do Banco de Dados
+## Estrutura do Banco de Dados
 
 ```sql
 CREATE DATABASE db_acheifacil;
@@ -83,7 +83,7 @@ CREATE TABLE tb_retirada (
 
 ---
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 AcheiFacil/
@@ -119,7 +119,7 @@ AcheiFacil/
 
 ---
 
-## 🚀 Como Rodar o Projeto
+## Como Rodar o Projeto
 
 ### Pré-requisitos
 
@@ -182,7 +182,7 @@ O frontend estará disponível em: `http://localhost:5173`
 
 ---
 
-## 🔌 Rotas da API
+## Rotas da API
 
 ### Itens
 | Método | Rota | Descrição |
@@ -204,7 +204,7 @@ O frontend estará disponível em: `http://localhost:5173`
 
 ---
 
-## 👥 Autores
+## Autores
 
 | Nome | GitHub |
 |---|---|
@@ -213,7 +213,7 @@ O frontend estará disponível em: `http://localhost:5173`
 
 ---
 
-## 🏫 Instituição
+## Instituição
 
 Desenvolvido como Trabalho de Conclusão de Curso do **Técnico em Desenvolvimento de Sistemas** da:
 
