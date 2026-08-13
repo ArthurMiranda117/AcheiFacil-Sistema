@@ -156,7 +156,7 @@ Verifique as configurações de conexão em `models/db_connect.py`:
 self.config = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'sua_senha',
+    'password': '',
     'database': 'db_acheifacil'
 }
 ```
