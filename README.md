@@ -21,7 +21,7 @@ O sistema permite que atendentes registrem itens encontrados, controlem o status
 - ✅ Excluir itens com confirmação
 - ✅ Controle de status: **disponível** ou **retirado**
 
-### 🔄 Módulo de Retiradas
+### Módulo de Retiradas
 - ✅ Registrar retirada vinculada a um item disponível
 - ✅ Seleção de item por dropdown (exibe apenas itens disponíveis)
 - ✅ Baixa automática no status do item ao confirmar retirada
